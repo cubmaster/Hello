@@ -4,6 +4,7 @@ from sklearn import metrics
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.linear_model import LogisticRegressionCV
+from sklearn.naive_bayes import MultinomialNB
 from matplotlib import pyplot as plt
 
 
@@ -19,6 +20,12 @@ def naive_bayes_gaussian(x, y):
     print("Naive Bayes Gaussian")
     model = GaussianNB()
     model.fit(x, y.ravel())
+    return model
+
+def naive_bayes_Multinomial(x, y):
+    print("Naive Bayes Multinomial")
+    model = MultinomialNB()
+    model.fit(x, y)
     return model
 
 

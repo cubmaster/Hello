@@ -1,5 +1,7 @@
 from Helpers.DataHelpers import *
 from Helpers.training import *
+import dill as pickle
+
 
 def main():
     print("hello")
@@ -31,6 +33,10 @@ def main():
 
     print("Accuracy vs. Testing Data")
     analysis(model, xtest, ytest)
+
+    filename = 'model_v1.pk'
+    with open('./models/' + filename, 'wb') as file:
+        pickle.dump(model, file)
 
 
 
