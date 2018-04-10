@@ -1,13 +1,7 @@
 import pandas as pd
-import numpy as np
-import random
-import matplotlib.pyplot as plt
-from sklearn.cross_validation import train_test_split
 from sklearn.cluster import KMeans
-from sklearn.preprocessing import Normalizer
-from sklearn.pipeline import make_pipeline
-from sklearn.preprocessing import StandardScaler
-from sklearn.decomposition import PCA
+from scipy.cluster.hierarchy import linkage, dendrogram
+import matplotlib.pyplot as plt
 
 # Import and store dataset
 data = pd.read_csv('./Data/creditcard.csv')
@@ -33,30 +27,47 @@ x = unique.drop(['Class'], axis=1)
 
 
 
-xtrain, ytrain, xtest, ytest = train_test_split(x, y, test_size=0.3, random_state=40)
+#xtrain, ytrain, xtest, ytest = train_test_split(x, y, test_size=0.3, random_state=40)
 
 
-#kmeans = KMeans(n_clusters=unique.keys().size)
+kmeans = KMeans(n_clusters=20)
 
-pca = PCA(n_components=12)
-scaler = StandardScaler()
-pipeline = make_pipeline(scaler, pca)
+print('start fit_predict')
+result = kmeans.fit_predict(x)
 
-pipeline.fit(unique)
 
-features = range(pca.n_components_)
-plt.bar(features, pca.explained_variance_)
-plt.xlabel('PCA feature')
-plt.ylabel('variance')
-plt.xticks(features)
+
+
+
+
+unique['result'] = result
+
+plt.hist(unique[unique['Class'] == 1], max(unique['result']))
 plt.show()
 
-x = pca.components_[:,0]
-y = pca.components_[:,1]
 
-plt.scatter(x,y)
-plt.axis('equal')
-plt.show()
+
+print('done')
+
+#pca = PCA(n_components=12)
+#scaler = StandardScaler()
+#pipeline = make_pipeline(scaler, pca)
+#
+#pipeline.fit(unique)
+#
+#features = range(pca.n_components_)
+#plt.bar(features, pca.explained_variance_)
+#plt.xlabel('PCA feature')
+#plt.ylabel('variance')
+#plt.xticks(features)
+#plt.show()
+#
+#x = pca.components_[:,0]
+#y = pca.components_[:,1]
+#
+#plt.scatter(x,y)
+#plt.axis('equal')
+#plt.show()
 
 
 

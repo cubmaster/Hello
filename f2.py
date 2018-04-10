@@ -135,16 +135,16 @@ with tf.Session() as session:
         _, cross_entropy_score = session.run([optimizer, cross_entropy],
                                              feed_dict={X_train_node: raw_X_train, y_train_node: raw_y_train})
 
-        # if epoch % 10 == 0:
-        timer = time.time() - start_time
+        if epoch % 10 == 0:
+            timer = time.time() - start_time
 
-        print('Epoch: {}'.format(epoch), 'Current loss: {0:.4f}'.format(cross_entropy_score),
-              'Elapsed time: {0:.2f} seconds'.format(timer))
+            print('Epoch: {}'.format(epoch), 'Current loss: {0:.4f}'.format(cross_entropy_score),
+                  'Elapsed time: {0:.2f} seconds'.format(timer))
 
-        final_y_test = y_test_node.eval()
-        final_y_test_prediction = y_test_prediction.eval()
-        final_accuracy = calculate_accuracy(final_y_test, final_y_test_prediction)
-        print("Current accuracy: {0:.2f}%".format(final_accuracy))
+            final_y_test = y_test_node.eval()
+            final_y_test_prediction = y_test_prediction.eval()
+            final_accuracy = calculate_accuracy(final_y_test, final_y_test_prediction)
+            print("Current accuracy: {0:.2f}%".format(final_accuracy))
 
     final_y_test = y_test_node.eval()
     final_y_test_prediction = y_test_prediction.eval()
